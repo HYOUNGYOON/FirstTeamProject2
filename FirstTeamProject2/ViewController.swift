@@ -46,6 +46,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         teamLabel.textColor = UIColor.systemTeal.withAlphaComponent(0.6)
         teamLabel.frame = CGRect(x: 20, y: 80, width: screenWidth - 20 * 2, height: 30)
 
+
         infoBoxView.backgroundColor = .white
         infoBoxView.layer.cornerRadius = 10
         infoBoxView.frame = CGRect(x: 20, y: teamLabel.frame.maxY + 10, width: screenWidth - 20 * 2, height: 120)
@@ -86,6 +87,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.configure(with: teamMembers[indexPath.row])
         return cell
     }
+
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let selectedMember = teamMembers[indexPath.row]
+        let detailVC = MemberViewController()
+        detailVC.teamMember = selectedMember
+        
+        detailVC.modalPresentationStyle = .overFullScreen
+        detailVC.modalTransitionStyle = .crossDissolve
+        
+        present(detailVC, animated: true, completion: nil)
+    }
 }
 
 class TeamMemberCell: UITableViewCell {
@@ -105,8 +120,8 @@ class TeamMemberCell: UITableViewCell {
         arrowImageView.tintColor = .gray
 
         emojiLabel.frame = CGRect(x: 10, y: 10, width: 30, height: 40)
-        nameLabel.frame = CGRect(x:50, y: 10, width: 100, height: 40)
-        mbtiLabel.frame = CGRect(x:110, y: 20, width: 50, height: 20)
+        nameLabel.frame = CGRect(x: 50, y: 10, width: 100, height: 40)
+        mbtiLabel.frame = CGRect(x: 110, y: 20, width: 50, height: 20)
         arrowImageView.frame = CGRect(x: 360, y: 20, width: 15, height: 15)
 
         contentView.addSubview(emojiLabel)
